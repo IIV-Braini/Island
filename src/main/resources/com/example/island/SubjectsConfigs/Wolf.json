@@ -1,0 +1,10 @@
+{
+  "name" : "Wolf",
+  "maxSpeed" : 3,
+  "standardWeight" : 30.0,
+  "maxEat" : 3.0,
+  "maxCount" : 30,
+  "huntersGene" : {
+    "Rabbit" : 0.9
+  }
+}

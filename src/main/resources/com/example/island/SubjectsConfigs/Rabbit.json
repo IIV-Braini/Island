@@ -1,0 +1,7 @@
+{
+  "name" : "Rabbit",
+  "maxSpeed" : 2,
+  "standardWeight" : 4.0,
+  "maxEat" : 1.0,
+  "maxCount" : 100
+}

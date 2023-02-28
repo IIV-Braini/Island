@@ -1,0 +1,7 @@
+{
+  "name" : "Goat",
+  "maxSpeed" : 1,
+  "standardWeight" : 10.0,
+  "maxEat" : 2.0,
+  "maxCount" : 60
+}
