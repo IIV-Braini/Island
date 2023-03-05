@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<AnchorPane prefHeight="514.0" prefWidth="610.0"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.island.UI.IslandController">
+    <children>
+        <ScrollPane layoutX="12.0" layoutY="36.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="574.0">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="337.0" prefWidth="598.0">
+                    <children>
+                        <Label layoutX="2.0" layoutY="2.0" prefHeight="182.0" prefWidth="178.0" fx:id="LogD"/>
+                    </children>
+                </AnchorPane>
+            </content>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+         </ScrollPane>
+        <Accordion focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+            <panes>
+                <TitledPane animated="false" text="Setting Island">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="26.0" layoutY="18.0" prefHeight="294.0" prefWidth="338.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="469.6" minWidth="-Infinity" prefWidth="132.00001220703126" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.80003967285154" minWidth="10.0" prefWidth="66.199951171875" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.00001525878906" minWidth="10.0" prefWidth="118.200048828125" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Вид животного:">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <Label prefHeight="18.0" prefWidth="74.0" text="Кол-во" GridPane.columnIndex="1">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Добавить на карту"
+                                       GridPane.columnIndex="2">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <!--______________________________________Wolf____________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Wolf" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets left="10.0" right="10.0"/>
+                                    </GridPane.margin>
+                                </Label>
+                                <TextField text="30" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="wolfCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="1" fx:id="wolfAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--___________________________________Fox_______________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Fox" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets left="10.0"/>
+                                    </GridPane.margin>
+                                </Label>
+                                <TextField text="50" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="foxCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="2" fx:id="foxAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--_____________________________________Eagle_____________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Eagle" GridPane.rowIndex="3">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="20" GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="eagleCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="3" fx:id="eagleAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--_______________________________________Boa__________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Boa" GridPane.rowIndex="4">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="20" GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="boaCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="4" fx:id="boaAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--___________________________________Bear_______________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Bear" GridPane.rowIndex="5">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="3" GridPane.columnIndex="1" GridPane.rowIndex="5" fx:id="bearCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="5" fx:id="bearAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--_____________________________________WildBoar__________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="WildBoar" GridPane.rowIndex="6">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="15" GridPane.columnIndex="1" GridPane.rowIndex="6"
+                                           fx:id="wildBoarCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="6" fx:id="wildBoatAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--__________________________________Sheep______________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Sheep" GridPane.rowIndex="7">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="30" GridPane.columnIndex="1" GridPane.rowIndex="7" fx:id="sheepCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="7" fx:id="sheepAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--_____________________________________Horse_____________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Horse" GridPane.rowIndex="8">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="20" GridPane.columnIndex="1" GridPane.rowIndex="8" fx:id="horseCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="8" fx:id="horseAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--____________________________________Mouse_____________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Mouse" GridPane.rowIndex="9">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="100" GridPane.columnIndex="1" GridPane.rowIndex="9" fx:id="mouseCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="9" fx:id="mouseAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--______________________________________Goat___________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Goat" GridPane.rowIndex="10">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="50" GridPane.columnIndex="1" GridPane.rowIndex="10" fx:id="goatCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="10" fx:id="goatAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--___________________________________Duck_____________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Duck" GridPane.rowIndex="11">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="80" GridPane.columnIndex="1" GridPane.rowIndex="11" fx:id="duckCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="11" fx:id="duckAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--______________________________________Deer___________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Deer" GridPane.rowIndex="12">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="50" GridPane.columnIndex="1" GridPane.rowIndex="12" fx:id="deerCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="12" fx:id="deerAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--________________________________Caterpillar________________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Caterpillar" GridPane.rowIndex="13">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="100" GridPane.columnIndex="1" GridPane.rowIndex="13"
+                                           fx:id="caterpillarCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="13" fx:id="caterpillarAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--________________________________Buffalo_______________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Buffalo" GridPane.rowIndex="14">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="10" GridPane.columnIndex="1" GridPane.rowIndex="14"
+                                           fx:id="buffaloCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="14" fx:id="buffaloAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--________________________________Rabbit________________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Rabbit" GridPane.rowIndex="15">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="50" GridPane.columnIndex="1" GridPane.rowIndex="15"
+                                           fx:id="rabbitCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="15" fx:id="rabbitAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--__________________________________Plant________________________________________-->
+                                <Label prefHeight="18.0" prefWidth="206.0" text="Plant" GridPane.rowIndex="16">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="1000" GridPane.columnIndex="1" GridPane.rowIndex="16"
+                                           fx:id="plantCount">
+                                    <padding>
+                                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                                    </padding>
+                                </TextField>
+                                <CheckBox mnemonicParsing="false" selected="true" GridPane.columnIndex="2"
+                                          GridPane.rowIndex="16" fx:id="plantAdd">
+                                    <padding>
+                                        <Insets left="50.0"/>
+                                    </padding>
+                                </CheckBox>
+                                <!--_____________________________________________________________________________-->
+                            </children>
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+                        </GridPane>
+                        <GridPane layoutX="364.0" layoutY="24.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.60003662109375" minWidth="10.0"
+                                                   prefWidth="129.60003662109375"/>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0"
+                                                   prefWidth="70.39996337890625"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label prefHeight="18.0" prefWidth="139.0" text="Размеры острова:">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <Label prefHeight="18.0" prefWidth="139.0" text="Ширина:" GridPane.rowIndex="1">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="width"/>
+                                <Label prefHeight="18.0" prefWidth="139.0" text="Высота:" GridPane.rowIndex="2">
+                                    <padding>
+                                        <Insets left="10.0"/>
+                                    </padding>
+                                </Label>
+                                <TextField text="5" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="height"/>
+                            </children>
+                        </GridPane>
+                                <GridPane layoutX="364.0" layoutY="130.0" prefHeight="32.0" prefWidth="200.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="128.0" minWidth="10.0" prefWidth="128.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="72.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label prefHeight="18.0" prefWidth="113.0" text="Время хода (мс)">
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <TextField text="100" GridPane.columnIndex="1" fx:id="millisecondTurn"/>
+                                    </children>
+                                </GridPane>
+                                <GridPane layoutX="364.0" layoutY="167.0" prefHeight="153.0" prefWidth="204.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.5999755859375" minWidth="10.0" prefWidth="148.79996337890626" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.20001220703125" minWidth="10.0" prefWidth="54.40003662109373" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints maxHeight="27.9999755859375" minHeight="10.0" prefHeight="21.8" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="53.60001220703125" minHeight="10.0" prefHeight="27.200006103515626" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="66.80002441406249" minHeight="10.0" prefHeight="29.599993896484378" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="77.19998779296874" minHeight="10.0" prefHeight="27.79999389648438" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="81.8000244140625" minHeight="10.0" prefHeight="69.59998168945314" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <Label prefHeight="18.0" prefWidth="113.0" text="Установить цель:">
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <Label prefHeight="18.0" prefWidth="139.0" text="Все животные умерли" GridPane.rowIndex="1">
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="28.0" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="endAfterAllAnimalDead">
+                                            <padding>
+                                                <Insets left="20.0" />
+                                            </padding>
+                                        </CheckBox>
+
+                                        <Label prefHeight="18.0" prefWidth="139.0" text="Все хищники умерли" GridPane.rowIndex="2">
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="28.0" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="endAfterAllPredatorsDead">
+                                            <padding>
+                                                <Insets left="20.0" />
+                                            </padding>
+                                        </CheckBox>
+
+
+                                        <Label prefHeight="18.0" prefWidth="150.0" text="Все травоядные умерли" GridPane.rowIndex="3">
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="28.0" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="endAfterAllHerbivoreDead">
+                                            <padding>
+                                                <Insets left="20.0" />
+                                            </padding>
+                                        </CheckBox>
+
+                                        <Label prefHeight="27.0" prefWidth="139.0" text="Кол-во ходов:" GridPane.rowIndex="4" >
+                                            <padding>
+                                                <Insets left="10.0" />
+                                            </padding>
+                                            <GridPane.margin>
+                                                <Insets bottom="40.0" />
+                                            </GridPane.margin>
+                                        </Label>
+                                        <TextField prefHeight="26.0" prefWidth="132.0" text="50" GridPane.rowIndex="4" fx:id="countTurn" >
+                                            <GridPane.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                            </GridPane.margin>
+                                        </TextField>
+                                        <CheckBox mnemonicParsing="false" prefHeight="18.0" prefWidth="28.0" selected="true" GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="endAfterCountTurn">
+                                            <padding>
+                                                <Insets left="20.0" />
+                                            </padding>
+                                        </CheckBox>
+
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+        <Pane layoutY="436.0" prefHeight="70.0" prefWidth="600.0">
+            <children>
+                <ButtonBar layoutX="28.0" layoutY="15.0" prefHeight="40.0" prefWidth="558.0">
+                    <buttons>
+                        <Button mnemonicParsing="false" text="Prev Turn" />
+                        <Button mnemonicParsing="false" text="Next Turn" />
+                        <Button mnemonicParsing="false" text="Stop" onAction="#stopButtonClick"/>
+                        <Button mnemonicParsing="false" text="Start" onAction="#startButtonClick" />
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

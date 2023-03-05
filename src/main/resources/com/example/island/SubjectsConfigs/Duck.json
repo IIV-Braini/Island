@@ -1,0 +1,11 @@
+{
+  "name" : "Duck",
+  "maxSpeed" : 4,
+  "standardWeight" : 1.0,
+  "maxEat" : 0.15,
+  "maxCount" : 200,
+  "edibleGene" : {
+    "Plant" : 1,
+    "Caterpillar" : 0.9
+  }
+}

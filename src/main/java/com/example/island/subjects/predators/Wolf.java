@@ -8,10 +8,7 @@ public class Wolf extends Predator {
     public Wolf(Config config) {
         super(config);
     }
-    @Override
-    public void eat() {
-        super.eat();
-    }
+
 
 
 }

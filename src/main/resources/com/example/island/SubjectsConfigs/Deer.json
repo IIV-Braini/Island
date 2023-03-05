@@ -1,0 +1,10 @@
+{
+  "name" : "Deer",
+  "maxSpeed" : 4,
+  "standardWeight" : 300.0,
+  "maxEat" : 50.0,
+  "maxCount" : 20,
+  "edibleGene" : {
+    "Plant" : 1
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name" : "Plant",
+  "standardWeight" : 1.0,
+  "maxCount" : 1000
+}

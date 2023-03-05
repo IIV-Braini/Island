@@ -1,0 +1,10 @@
+{
+  "name" : "Buffalo",
+  "maxSpeed" : 3,
+  "standardWeight" : 700.0,
+  "maxEat" : 100.0,
+  "maxCount" : 10,
+  "edibleGene" : {
+    "Plant" : 1
+  }
+}

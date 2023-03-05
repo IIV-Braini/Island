@@ -7,9 +7,6 @@ public class Eagle extends Predator {
     public Eagle(Config config) {
         super(config);
     }
-    @Override
-    public void eat() {
-        super.eat();
-    }
+
 
 }

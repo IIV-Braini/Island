@@ -1,8 +1,8 @@
 {
-  "name" : "Goat",
+  "name" : "Sheep",
   "maxSpeed" : 3,
-  "standardWeight" : 60.0,
-  "maxEat" : 10.0,
+  "standardWeight" : 70.0,
+  "maxEat" : 15.0,
   "maxCount" : 140,
   "edibleGene" : {
     "Plant" : 1

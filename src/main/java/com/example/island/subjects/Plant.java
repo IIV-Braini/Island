@@ -1,30 +1,15 @@
 package com.example.island.subjects;
 
+import com.example.island.Creator.Config;
 import com.example.island.GameField.Cell;
+import com.example.island.subjects.interfaces.Growable;
 
-public class Plant extends Subject {
-    private double weight;
+import java.util.concurrent.Callable;
 
-    public void growthPlant() {
-        double percentageOfGrowthPerTurn = 1.1;
-        weight *= percentageOfGrowthPerTurn;
+public class Plant extends Subject implements Growable {
+
+    public Plant(Config config) {
+        super(config);
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public Plant(double weight) {
-        this.weight = weight;
-    }
-
-    @Override
-    public Void call() throws Exception {
-        growthPlant();
-        return null;
-    }
 }

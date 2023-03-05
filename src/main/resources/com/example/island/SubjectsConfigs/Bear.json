@@ -1,0 +1,19 @@
+{
+  "name" : "Bear",
+  "maxSpeed" : 2,
+  "standardWeight" : 500.0,
+  "maxEat" : 80.0,
+  "maxCount" : 5,
+  "edibleGene" : {
+    "Boa" : 0.8,
+    "Horse" : 0.4,
+    "Deer" : 0.8,
+    "Rabbit" : 0.8,
+    "Mouse" : 0.9,
+    "Goat" : 0.7,
+    "Sheep" : 0.7,
+    "WildBoar" : 0.5,
+    "Buffalo" : 0.2,
+    "Duck" : 0.1
+  }
+}

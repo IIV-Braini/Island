@@ -1,0 +1,13 @@
+{
+  "name" : "Boa",
+  "maxSpeed" : 1,
+  "standardWeight" : 15.0,
+  "maxEat" : 3.0,
+  "maxCount" : 30,
+  "edibleGene" : {
+    "Fox" : 0.15,
+    "Rabbit" : 0.2,
+    "Mouse" : 0.4,
+    "Duck" : 0.4
+  }
+}

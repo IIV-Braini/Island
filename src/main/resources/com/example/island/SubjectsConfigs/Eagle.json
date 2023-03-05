@@ -1,0 +1,13 @@
+{
+  "name" : "Eagle",
+  "maxSpeed" : 3,
+  "standardWeight" : 6.0,
+  "maxEat" : 1.0,
+  "maxCount" : 20,
+  "edibleGene" : {
+    "Fox" : 0.1,
+    "Rabbit" : 0.9,
+    "Mouse" : 0.9,
+    "Duck" : 0.8
+  }
+}

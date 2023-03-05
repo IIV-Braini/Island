@@ -7,9 +7,6 @@ public class Boa extends Predator {
     public Boa(Config config) {
         super(config);
     }
-    @Override
-    public void eat() {
-        super.eat();
-    }
+
 
 }

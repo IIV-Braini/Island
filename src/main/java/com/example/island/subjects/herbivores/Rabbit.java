@@ -10,5 +10,4 @@ public class Rabbit extends Herbivore {
         super(config);
     }
 
-
 }

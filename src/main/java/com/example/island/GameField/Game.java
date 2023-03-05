@@ -1,63 +1,102 @@
 package com.example.island.GameField;
 
-import com.example.island.subjects.Animal;
 import com.example.island.Creator.Creator;
-import com.example.island.subjects.herbivores.Rabbit;
-import com.example.island.subjects.predators.Wolf;
+import com.example.island.subjects.Animal;
+import com.example.island.subjects.Herbivore;
+import com.example.island.subjects.Predator;
+import com.example.island.subjects.Subject;
+import java.util.*;
+import java.util.concurrent.*;
 
-
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Game {
+    private static Game INSTANCE;
     public static volatile boolean isGameStopped = false;
-    public static final ExecutorService service = Executors.newFixedThreadPool(4);;
+    private static ScheduledExecutorService scheduledExecutorService;
+    private static int millisecondTurn;
+    private final boolean endAfterAllAnimalDead;
+    private final boolean endAfterAllPredatorsDead;
+    private final boolean endAfterAllHerbivoreDead;
+    private final boolean endAfterCountTurn;
+    private int countTurnToStop;
 
-    public static List<Animal> animals;
+    public static void create(int width, int height,
+                              HashMap<Class<?>, Integer> map,
+                              int millisecondTurn,
+                              boolean endAfterAllAnimalDead,
+                              boolean endAfterAllPredatorsDead,
+                              boolean endAfterAllHerbivoreDead,
+                              boolean endAfterCountTurn,
+                              Integer countTurn) {
+        INSTANCE = new Game(width, height, map, millisecondTurn,
+                endAfterAllAnimalDead,
+                endAfterAllPredatorsDead,
+                endAfterAllHerbivoreDead,
+                endAfterCountTurn,
+                countTurn);
+    }
 
-    public static void main(String[] args) throws InterruptedException {
+    private Game(int width, int height, HashMap<Class<?>, Integer> map,
+                 int millisecondTurn, boolean endAfterAllAnimalDead,
+                 boolean endAfterAllPredatorsDead, boolean endAfterAllHerbivoreDead,
+                 boolean endAfterCountTurn, Integer countTurn)
+    {
+        Field.createField(width, height);
+        createSubjects(map);
+        this.millisecondTurn = millisecondTurn;
+        this.endAfterAllAnimalDead = endAfterAllAnimalDead;
+        this.endAfterAllPredatorsDead = endAfterAllPredatorsDead;
+        this.endAfterAllHerbivoreDead = endAfterAllHerbivoreDead;
+        this.endAfterCountTurn = endAfterCountTurn;
+        countTurnToStop = endAfterCountTurn ? countTurn : -1;
+        scheduledExecutorService = Executors.newScheduledThreadPool(1);
+    }
 
+    public static synchronized void startGame() {
+        System.out.print("\033[H\033[2J");
+        isGameStopped = false;
+        scheduledExecutorService.scheduleWithFixedDelay(Field.getInstance(), millisecondTurn, millisecondTurn, TimeUnit.MILLISECONDS);
+    }
 
+    public static void stopGame() {
+        isGameStopped = true;
+        scheduledExecutorService.shutdown();
+        scheduledExecutorService.close();
+        Field.clearField();
+        Subject.reloadNumerator();
+    }
 
-        Map<Class<?>, Integer> map = Map.of(
-                Wolf.class, 20,
-                Rabbit.class, 150
-                );
-
-        Game game = new Game();
-        Field field = new Field(5, 3);
-
-        animals = game.createAnimals(map, field);
-        service.invokeAll(animals);
-        field.printCountAllAnimals();
-        /* service.invokeAll(animals);
-        field.printCountAllAnimals();*/
-        for (Class<?> aClass : Cell.MAX_COUNT_POPULATION.keySet()) {
-            System.out.println(aClass + " " + Cell.MAX_COUNT_POPULATION.get(aClass));
-        }
-        service.shutdown();
-
+    public static Game getInstance() {
+        return INSTANCE;
     }
 
 
-
-    private List<Animal> createAnimals(Map<Class<?>, Integer> createAnimalsMap, Field field) {
+    private void createSubjects(Map<Class<?>, Integer> createAnimalsMap) {
         // Добавить проверку, если животных больше чем 80 доступных мест, урезать их кол-во
-        List<Animal> animals = new ArrayList<>();
+        HashSet<Subject> subjects = new HashSet<>();
         Set<Class<?>> classes = createAnimalsMap.keySet();
         for (Class<?> aClass : classes) {
-            animals.addAll(Creator.getInstance().createMultipleAnimals(aClass, createAnimalsMap.get(aClass), field));
+            subjects.addAll(Creator.getInstance().createMultipleAnimals(aClass, createAnimalsMap.get(aClass)));
         }
-        //
-        return animals;
+        Field.getInstance().setSubjects(subjects);
     }
 
-    private void createPlant() {
-        //Creator.getInstance().createPlantInEachCell(field);
+    public void checkGoals(HashSet<Subject> subjects) {
+        if (endAfterAllAnimalDead && subjects.stream().noneMatch(s -> s instanceof Animal)) {
+            System.out.println("Все животные умерли");
+            stopGame();
+        }
+        if (endAfterAllPredatorsDead && subjects.stream().noneMatch(s -> s instanceof Predator)) {
+            System.out.println("Все хищники умерли");
+            stopGame();
+        }
+        if (endAfterAllHerbivoreDead && subjects.stream().noneMatch(s -> s instanceof Herbivore)) {
+            System.out.println("Все травоядные умерли");
+            stopGame();
+        }
+        if (endAfterCountTurn && countTurnToStop == Field.getInstance().getTurn()) {
+            System.out.println("Кол-во ходом: " + countTurnToStop);
+            stopGame();
+        }
     }
 }

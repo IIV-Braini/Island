@@ -3,24 +3,17 @@ package com.example.island.Creator;
 
 import com.example.island.GameField.Cell;
 import com.example.island.GameField.Field;
-import com.example.island.subjects.Animal;
-import com.example.island.subjects.Herbivore;
-import com.example.island.subjects.Plant;
-import com.example.island.subjects.Predator;
-import com.example.island.subjects.herbivores.Rabbit;
-import com.example.island.subjects.predators.Wolf;
+import com.example.island.subjects.*;
+import com.example.island.subjects.herbivores.*;
+import com.example.island.subjects.predators.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.HashSet;
 
 public class Creator {
     private static Creator INSTANCE;
-    private ConfigLoader configLoader;
+    private final ConfigLoader configLoader;
     private Creator() {
         configLoader = new ConfigLoader();
     }
@@ -32,7 +25,7 @@ public class Creator {
         return INSTANCE;
     }
 
-    public Animal createNewAnimal(Class<?> clazz) {
+    public Subject createNewSubject(Class<?> clazz) {
         Config config;
         try {
             config = (configLoader.readConfig(clazz));
@@ -42,57 +35,55 @@ public class Creator {
         }
         return switch (clazz.getSimpleName()) {
             case "Wolf" -> new Wolf(config);
+            case "Fox" -> new Fox(config);
+            case "Eagle" -> new Eagle(config);
+            case "Boa" -> new Boa(config);
+            case "Bear" -> new Bear(config);
             case "Rabbit" -> new Rabbit(config);
+            case "Buffalo" -> new Buffalo(config);
+            case "Caterpillar" -> new Caterpillar(config);
+            case "Deer" -> new Deer(config);
+            case "Duck" -> new Duck(config);
+            case "Goat" -> new Goat(config);
+            case "Horse" -> new Horse(config);
+            case "Mouse" -> new Mouse(config);
+            case "Sheep" -> new Sheep(config);
+            case "WildBoar" -> new WildBoar(config);
+            case "Plant" -> new Plant(config);
             default -> throw new IllegalStateException("Unexpected value: " + clazz.getSimpleName());
         };
     }
 
-    public Predator createPredator(Config config) {
-        return new Predator(config) {
-        };
-    }
-
-    private Config getConfig(String typeAnimal) {
-        return null;
-    }
-
-    public Animal createNewAnimalWithRandomCell(Class<?> clazz, Field field){
-        Animal animal = createNewAnimal(clazz);
+    private Subject createNewSubjectWithRandomCell(Class<?> clazz){
+        Subject subject = createNewSubject(clazz);
         Cell randomCell;
         do {
-            randomCell = field.getRandomCell();
+            randomCell = Field.getInstance().getRandomCell();
         }
-        while (!randomCell.checkFreeSlot(animal.getClass()));
-        randomCell.addAnimalThisCell(animal);
-        return animal;
+        while (!randomCell.checkFreeSlot(subject.getClass()));
+        randomCell.addSubjectThisCell(subject);
+        return subject;
     }
 
-    public List<Animal> createMultipleAnimals(Class<?> clazz, int number, Field field){
-        List<Animal> animals = new ArrayList<>();
+    public HashSet<Subject> createMultipleAnimals(Class<?> clazz, int number){
+        HashSet<Subject> subjects = new HashSet<>();
         for (int i = 0; i < number; i++) {
-            animals.add(createNewAnimalWithRandomCell(clazz, field));
+            Subject subject = createNewSubjectWithRandomCell(clazz);
+            subjects.add(subject);
         }
-        return animals;
-    }
-
-    public void createPlant (Cell cell) {
-        cell.addPlant(new Plant(ThreadLocalRandom.current().nextDouble(0, 1)));
-    }
-
-    public void createRandomMultiplePlants (int count, Field field) {
-        for (int i = 0; i < count; i++) {
-            createPlant(field.getRandomCell());
-        }
+        return subjects;
     }
 
     private class ConfigLoader {
+        private final String pathDirectory;
+        private final ObjectMapper mapper;
 
-        //private Path pathDirectory = Path.of("src\\main\\resources\\com\\example\\island\\SubjectsConfigs");
-        private String pathDirectory = "src\\main\\resources\\com\\example\\island\\SubjectsConfigs\\";
-        private ObjectMapper mapper = new ObjectMapper();
+        private ConfigLoader() {
+            mapper = new ObjectMapper();
+            pathDirectory = "src\\main\\resources\\com\\example\\island\\SubjectsConfigs\\";
+        }
 
         private Config readConfig(Class<?> typeSubject) throws IOException {
-            ObjectMapper mapper = new ObjectMapper();
             String s = pathDirectory + typeSubject.getSimpleName() + ".json";
             File file = new File(s);
             return mapper.readValue(file, Config.class);

@@ -1,7 +1,10 @@
 {
   "name" : "Rabbit",
   "maxSpeed" : 2,
-  "standardWeight" : 4.0,
-  "maxEat" : 1.0,
-  "maxCount" : 100
+  "standardWeight" : 2.0,
+  "maxEat" : 0.45,
+  "maxCount" : 20,
+  "edibleGene" : {
+    "Plant" : 1
+  }
 }

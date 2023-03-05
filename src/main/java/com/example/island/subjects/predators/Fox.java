@@ -10,10 +10,7 @@ public class Fox extends Predator {
     public Fox(Config config) {
         super(config);
     }
-    @Override
-    public void eat() {
-        super.eat();
-    }
+
 
 
 }

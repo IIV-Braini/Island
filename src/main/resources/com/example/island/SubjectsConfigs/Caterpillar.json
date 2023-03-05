@@ -1,0 +1,10 @@
+{
+  "name" : "Caterpillar",
+  "maxSpeed" : 0,
+  "standardWeight" : 0.01,
+  "maxEat" : 0.00001,
+  "maxCount" : 1000,
+  "edibleGene" : {
+    "Plant" : 1
+  }
+}

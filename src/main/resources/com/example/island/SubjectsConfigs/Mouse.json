@@ -1,0 +1,11 @@
+{
+  "name" : "Mouse",
+  "maxSpeed" : 1,
+  "standardWeight" : 0.05,
+  "maxEat" : 0.01,
+  "maxCount" : 500,
+  "edibleGene" : {
+    "Plant" : 1,
+    "Caterpillar" : 0.9
+  }
+}

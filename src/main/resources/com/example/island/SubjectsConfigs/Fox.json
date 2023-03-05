@@ -1,11 +1,13 @@
 {
   "name" : "Fox",
   "maxSpeed" : 2,
-  "standardWeight" : 30.0,
-  "maxEat" : 3.0,
-  "maxCount" : 60,
-  "huntersGene" : {
-    "Goat" : 0.3,
-    "Rabbit" : 0.6
+  "standardWeight" : 8.0,
+  "maxEat" : 2.0,
+  "maxCount" : 30,
+  "edibleGene" : {
+    "Rabbit" : 0.7,
+    "Mouse" : 0.9,
+    "Duck" : 0.6,
+    "Caterpillar" : 0.4
   }
 }

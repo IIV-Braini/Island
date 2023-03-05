@@ -8,9 +8,5 @@ public class Bear extends Predator {
     public Bear(Config config) {
         super(config);
     }
-    @Override
-    public void eat() {
-        super.eat();
-    }
 
 }
