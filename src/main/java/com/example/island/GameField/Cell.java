@@ -5,7 +5,6 @@ import com.example.island.subjects.Subject;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-
 public class Cell {
     public static Map<Class<?>, Integer> MAX_COUNT_POPULATION = new HashMap<>();
     private Cell cellOnUp;
