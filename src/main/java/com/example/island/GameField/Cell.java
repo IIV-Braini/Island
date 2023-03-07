@@ -2,30 +2,24 @@ package com.example.island.GameField;
 
 import com.example.island.subjects.Animal;
 import com.example.island.subjects.Subject;
-
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 
 public class Cell {
     public static Map<Class<?>, Integer> MAX_COUNT_POPULATION = new HashMap<>();
-    private final String name;
     private Cell cellOnUp;
     private Cell cellOnDown;
     private Cell cellOnLeft;
     private Cell cellOnRight;
-    private volatile HashSet<Subject> subjectsHashSet = new HashSet<>();
+    private final HashSet<Subject> subjectsHashSet = new HashSet<>();
 
-    public String getName() {
-        return name;
-    }
 
     public HashSet<Subject> getSubjectsHashSet() {
         return subjectsHashSet;
     }
 
-    public Cell(String name) {
-        this.name = name;
+    public Cell() {
     }
 
     public Cell getNewCell(Direction direction, Integer step) {
@@ -93,10 +87,6 @@ public class Cell {
                 .filter(Animal::isReadyToBreed)
                 .toList();
         return animals.get(ThreadLocalRandom.current().nextInt(0, animals.size()));
-    }
-
-    public void printCountAllSubjectsInCount() {
-        System.out.println("В ячейке " + name + " общее кол-во животных: " + subjectsHashSet.size());
     }
 
     public synchronized void addSubjectThisCell(Subject subject) {

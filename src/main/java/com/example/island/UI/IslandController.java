@@ -2,22 +2,22 @@ package com.example.island.UI;
 
 import com.example.island.GameField.Field;
 import com.example.island.GameField.Game;
-import com.example.island.SubjectsConfigs.Plant;
+import com.example.island.IslandApplication;
+import com.example.island.subjects.Plant;
 import com.example.island.subjects.herbivores.*;
 import com.example.island.subjects.predators.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
-import java.util.ArrayList;
+import javafx.scene.control.TitledPane;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class IslandController {
+
     @FXML
-    private Label LogD;
+    private TextArea console;
     @FXML
     private TextField millisecondTurn;
     @FXML
@@ -98,27 +98,36 @@ public class IslandController {
     private CheckBox endAfterCountTurn;
     @FXML
     private TextField countTurn;
-    private boolean isGameCreate = false;
+    @FXML
+    private TitledPane titledPane;
 
     @FXML
     protected void startButtonClick() {
-        if (Game.getInstance() == null || Game.isGameStopped) {
-            Game.create(Integer.valueOf(width.getText()),
-                    Integer.valueOf(height.getText()),
-                    initializationSubjects(),
-                    Integer.valueOf(millisecondTurn.getText()),
-                    endAfterAllAnimalDead.isSelected(),
-                    endAfterAllPredatorsDead.isSelected(),
-                    endAfterAllHerbivoreDead.isSelected(),
-                    endAfterCountTurn.isSelected(),
-                    Integer.valueOf(countTurn.getText()));
+        if (Game.isGameStopped()) {
+            IslandApplication.cleanLog();
+            Game.create(Integer.parseInt(millisecondTurn.getText()));
+            Field.createField(Integer.parseInt(width.getText()), Integer.parseInt(height.getText()), initializationSubjects(), endAfterAllAnimalDead.isSelected(),  endAfterAllPredatorsDead.isSelected(), endAfterAllHerbivoreDead.isSelected(), endAfterCountTurn.isSelected(),  Integer.parseInt(countTurn.getText()));
             Game.startGame();
         }
+        titledPane.setExpanded(false);
     }
 
     @FXML
     protected void stopButtonClick() {
-        Game.stopGame();
+        if(!Game.isGameStopped()) Game.stopGame();
+        else console.setText("Игра уже окончена, закройте окно или начните новую!");
+    }
+
+    @FXML
+    protected void prevButtonClick() {
+        if(!Game.isGameStopped()) Game.stopGame();
+        else IslandApplication.showPrevLog();
+    }
+
+    @FXML
+    protected void newtButtonClick() {
+        if(!Game.isGameStopped()) Game.stopGame();
+        else IslandApplication.showNextLog();
     }
 
     private HashMap<Class<?>, Integer> initializationSubjects() {
@@ -142,5 +151,8 @@ public class IslandController {
         return map;
     }
 
+    public TextArea getConsole() {
+        return console;
+    }
 
 }

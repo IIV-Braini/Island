@@ -6,23 +6,15 @@ import com.example.island.subjects.interfaces.Growable;
 import com.example.island.subjects.interfaces.Movable;
 import com.example.island.subjects.interfaces.Reproducible;
 import com.example.island.subjects.interfaces.toEating;
-
 import java.util.Map;
 import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Subject implements Callable<Void> {
     private volatile boolean isAlive;
     private double weight;
-    private final String name;
     private Cell cell;
-    private static AtomicInteger atomicInteger = new AtomicInteger();
-    public static void reloadNumerator() {
-        atomicInteger = new AtomicInteger(0);
-    }
 
     public Subject(Config config) {
-        name = config.getName() + " №" + atomicInteger.incrementAndGet();
         weight = config.getStandardWeight();
         isAlive = true;
         if (!Cell.checkMaxPopulationThisClass(this.getClass())) {
@@ -51,20 +43,12 @@ public abstract class Subject implements Callable<Void> {
         this.weight = weight;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public Cell getCell() {
         return cell;
     }
 
     public void setCell(Cell cell) {
         this.cell = cell;
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
     }
 
     public synchronized void deadSubject() {

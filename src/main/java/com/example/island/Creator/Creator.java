@@ -9,7 +9,10 @@ import com.example.island.subjects.predators.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Creator {
     private static Creator INSTANCE;
@@ -58,7 +61,7 @@ public class Creator {
         Subject subject = createNewSubject(clazz);
         Cell randomCell;
         do {
-            randomCell = Field.getInstance().getRandomCell();
+            randomCell = Field.getRandomCell();
         }
         while (!randomCell.checkFreeSlot(subject.getClass()));
         randomCell.addSubjectThisCell(subject);
@@ -74,6 +77,15 @@ public class Creator {
         return subjects;
     }
 
+    public HashSet<Subject> createSubjects(Map<Class<?>, Integer> createAnimalsMap) {
+        HashSet<Subject> subjects = new HashSet<>();
+        Set<Class<?>> classes = createAnimalsMap.keySet();
+        for (Class<?> aClass : classes) {
+            subjects.addAll(getInstance().createMultipleAnimals(aClass, createAnimalsMap.get(aClass)));
+        }
+        return subjects;
+    }
+
     private class ConfigLoader {
         private final String pathDirectory;
         private final ObjectMapper mapper;
@@ -85,7 +97,8 @@ public class Creator {
 
         private Config readConfig(Class<?> typeSubject) throws IOException {
             String s = pathDirectory + typeSubject.getSimpleName() + ".json";
-            File file = new File(s);
+            Path path = Path.of(s).toAbsolutePath();
+            File file = new File(path.toString());
             return mapper.readValue(file, Config.class);
         }
     }

@@ -1,10 +1,12 @@
 package com.example.island.GameField;
 
+import com.example.island.Creator.Creator;
+import com.example.island.IslandApplication;
 import com.example.island.subjects.*;
 import com.example.island.subjects.herbivores.*;
 import com.example.island.subjects.predators.*;
-
 import java.util.HashSet;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,32 +19,41 @@ public class Field implements Runnable {
     private static int HEIGHT;
     private final Cell[][] cells;
     private volatile HashSet<Subject> subjects;
-    private AtomicInteger turn = new AtomicInteger(0);
-    private ExecutorService executorService;
+    private final AtomicInteger turn = new AtomicInteger(0);
+    private final ExecutorService executorService;
+    private final boolean endAfterAllAnimalDead;
+    private final boolean endAfterAllPredatorsDead;
+    private final boolean endAfterAllHerbivoreDead;
+    private final boolean endAfterCountTurn;
+    private final int countTurnToStop;
 
 
-    private Field(int width, int height) {
+    private Field(int width, int height, boolean endAfterAllAnimalDead, boolean endAfterAllPredatorsDead, boolean endAfterAllHerbivoreDead, boolean endAfterCountTurn, Integer countTurn) {
+        this.endAfterAllAnimalDead = endAfterAllAnimalDead;
+        this.endAfterAllPredatorsDead = endAfterAllPredatorsDead;
+        this.endAfterAllHerbivoreDead = endAfterAllHerbivoreDead;
+        this.endAfterCountTurn = endAfterCountTurn;
+        countTurnToStop = endAfterCountTurn ? countTurn : -1;
         WIDTH = width;
         HEIGHT = height;
         cells = new Cell[WIDTH][HEIGHT];
         executorService = Executors.newFixedThreadPool(4);
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
-                cells[x][y] = new Cell("Cell x = " + (x) + " , y = " + (y));
+                cells[x][y] = new Cell();
             }
         }
         setNeighbors(cells);
     }
 
-    public static synchronized void createField(int width, int height) {
-        INSTANCE = new Field(width, height);
-    }
-
-    public static synchronized Field getInstance() {
-        return INSTANCE;
+    public static synchronized void createField(int width, int height, Map<Class<?>, Integer> createAnimalsMap, boolean endAfterAllAnimalDead, boolean endAfterAllPredatorsDead, boolean endAfterAllHerbivoreDead, boolean endAfterCountTurn, Integer countTurn) {
+        INSTANCE = new Field(width, height, endAfterAllAnimalDead, endAfterAllPredatorsDead, endAfterAllHerbivoreDead, endAfterCountTurn, countTurn);
+        INSTANCE.subjects = Creator.getInstance().createSubjects(createAnimalsMap);
+        Game.getInstance().setField(INSTANCE);
     }
 
     public static synchronized void clearField() {
+        INSTANCE.closeExecutorService();
         INSTANCE = null;
     }
 
@@ -57,28 +68,30 @@ public class Field implements Runnable {
         }
     }
 
-    public Cell getRandomCell() {
-        return cells[ThreadLocalRandom.current().nextInt(0, WIDTH)][ThreadLocalRandom.current().nextInt(0, HEIGHT)];
+    public static Cell getRandomCell() {
+        return INSTANCE.cells[ThreadLocalRandom.current().nextInt(0, WIDTH)][ThreadLocalRandom.current().nextInt(0, HEIGHT)];
     }
 
     @Override
     public void run() {
-        if (!checkGoals() && !Game.isGameStopped) {
+        if (!Game.isGameStopped()) {
+            checkGoals();
             try {
                 executorService.invokeAll(subjects);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            setSubjectsFromCells();
-            showLog();
-        } else {
-            executorService.shutdown();
-            executorService.close();
+            reloadSubjects();
+            IslandApplication.showMessage(createLogTurnToString());
         }
     }
 
+    private void closeExecutorService() {
+        executorService.shutdown();
+        executorService.close();
+    }
 
-    private void setSubjectsFromCells() {
+    private void reloadSubjects() {
         HashSet<Subject> subjectsInAllCells = new HashSet<>();
         for (int y = 0; y < HEIGHT; y++) {
             for (int x = 0; x < WIDTH; x++) {
@@ -88,40 +101,49 @@ public class Field implements Runnable {
         subjects = subjectsInAllCells;
     }
 
-    private boolean checkGoals() {
-        Game.getInstance().checkGoals(subjects);
-        return Game.isGameStopped;
+
+    public void checkGoals() {
+        if (endAfterAllAnimalDead && subjects.stream().noneMatch(s -> s instanceof Animal)) {
+            IslandApplication.showMessage("Игра окончена.Все животные умерли");
+            Game.stopGame();
+        }
+        if (endAfterAllPredatorsDead && subjects.stream().noneMatch(s -> s instanceof Predator)) {
+            IslandApplication.showMessage("Игра окончена. Все хищники умерли");
+            Game.stopGame();
+        }
+        if (endAfterAllHerbivoreDead && subjects.stream().noneMatch(s -> s instanceof Herbivore)) {
+            IslandApplication.showMessage("Игра окончена. Все травоядные умерли");
+            Game.stopGame();
+        }
+        if (endAfterCountTurn && countTurnToStop == turn.get()) {
+            IslandApplication.showMessage("Игра окончена. Кол-во ходов: " + countTurnToStop);
+            Game.stopGame();
+        }
     }
 
-    public int getTurn() {
-        return turn.get();
+    private String createLogTurnToString() {
+        return "Ход номер: " + turn.getAndIncrement() + "\n" +
+                "На острове сейчас животных: " + subjects.stream().filter(s -> s instanceof Animal).toList().size() + "\n" +
+                "из них Хищники: " + subjects.stream().filter(s -> s instanceof Predator).toList().size() + ", " +
+                " Травоядные: " + subjects.stream().filter(s -> s instanceof Herbivore).toList().size() + "\n" +
+                "Травы на острове: " + subjects.stream().filter(s -> s instanceof Plant).toList().size() + "\n" +
+                "🐃 = " + subjects.stream().filter(s -> s instanceof Buffalo).toList().size() + "\n" +
+                "🐻 = " + subjects.stream().filter(s -> s instanceof Bear).toList().size() + "\n" +
+                "🐎 = " + subjects.stream().filter(s -> s instanceof Horse).toList().size() + "\n" +
+                "🦌 = " + subjects.stream().filter(s -> s instanceof Deer).toList().size() + "\n" +
+                "🐗 = " + subjects.stream().filter(s -> s instanceof WildBoar).toList().size() + "\n" +
+                "🐑 = " + subjects.stream().filter(s -> s instanceof Sheep).toList().size() + "\n" +
+                "🐐 = " + subjects.stream().filter(s -> s instanceof Goat).toList().size() + "\n" +
+                "🐺 = " + subjects.stream().filter(s -> s instanceof Wolf).toList().size() + "\n" +
+                "🐍 = " + subjects.stream().filter(s -> s instanceof Boa).toList().size() + "\n" +
+                "🦊 = " + subjects.stream().filter(s -> s instanceof Fox).toList().size() + "\n" +
+                "🦅 = " + subjects.stream().filter(s -> s instanceof Eagle).toList().size() + "\n" +
+                "🐇 = " + subjects.stream().filter(s -> s instanceof Rabbit).toList().size() + "\n" +
+                "🦆 = " + subjects.stream().filter(s -> s instanceof Duck).toList().size() + "\n" +
+                "🐁 = " + subjects.stream().filter(s -> s instanceof Mouse).toList().size() + "\n" +
+                "🐛 = " + subjects.stream().filter(s -> s instanceof Caterpillar).toList().size() + "\n";
     }
 
-    private void showLog() {
-        System.out.println("Ход номер: " + turn.getAndIncrement());
-        System.out.println("На острове сейчас животных: " + subjects.stream().filter(s -> s instanceof Animal).toList().size() + "\n" +
-                "из них Хищники: " + subjects.stream().filter(s -> s instanceof Predator).toList().size() + "\n" +
-                "из них Травоядные: " + subjects.stream().filter(s -> s instanceof Herbivore).toList().size() + "\n" +
-                "Травы на острове: " + subjects.stream().filter(s -> s instanceof Plant).toList().size());
-        System.out.println("🐃" + subjects.stream().filter(s -> s instanceof Buffalo).toList().size());
-        System.out.println("🐻" + subjects.stream().filter(s -> s instanceof Bear).toList().size());
-        System.out.println("🐎" + subjects.stream().filter(s -> s instanceof Horse).toList().size());
-        System.out.println("🦌" + subjects.stream().filter(s -> s instanceof Deer).toList().size());
-        System.out.println("🐗" + subjects.stream().filter(s -> s instanceof WildBoar).toList().size());
-        System.out.println("🐑" + subjects.stream().filter(s -> s instanceof Sheep).toList().size());
-        System.out.println("🐐" + subjects.stream().filter(s -> s instanceof Goat).toList().size());
-        System.out.println("🐺" + subjects.stream().filter(s -> s instanceof Wolf).toList().size());
-        System.out.println("🐍" + subjects.stream().filter(s -> s instanceof Boa).toList().size());
-        System.out.println("🦊" + subjects.stream().filter(s -> s instanceof Fox).toList().size());
-        System.out.println("🦅" + subjects.stream().filter(s -> s instanceof Eagle).toList().size());
-        System.out.println("🐇" + subjects.stream().filter(s -> s instanceof Rabbit).toList().size());
-        System.out.println("🦆" + subjects.stream().filter(s -> s instanceof Duck).toList().size());
-        System.out.println("🐁" + subjects.stream().filter(s -> s instanceof Mouse).toList().size());
-        System.out.println("🐛" + subjects.stream().filter(s -> s instanceof Caterpillar).toList().size());
-    }
 
-    public void setSubjects(HashSet<Subject> subjects) {
-        this.subjects = subjects;
-    }
 }
 
